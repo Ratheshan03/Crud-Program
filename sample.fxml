@@ -10,56 +10,51 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="390.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
-   <children>
-      <VBox layoutX="31.0" layoutY="29.0" prefHeight="220.0" prefWidth="78.0" spacing="16.0">
-         <children>
-            <Label text="ID">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label text="Title">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label text="Author">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label text="Year">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label text="Pages">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-      <VBox layoutX="109.0" layoutY="29.0" prefHeight="220.0" prefWidth="202.0" spacing="10.0">
-         <children>
-            <TextField fx:id="tfId" />
-            <TextField fx:id="tfTitle" layoutX="10.0" layoutY="10.0" />
-            <TextField fx:id="tfAuthor" layoutX="10.0" layoutY="36.0" />
-            <TextField fx:id="tfYear" layoutX="10.0" layoutY="61.0" />
-            <TextField fx:id="tfPages" layoutX="10.0" layoutY="87.0" />
-         </children>
-      </VBox>
-      <TreeTableView fx:id="tvBooks" layoutX="337.0" layoutY="22.0" prefHeight="321.0" prefWidth="451.0">
-        <columns>
-          <TreeTableColumn fx:id="colId" prefWidth="46.4000244140625" text="ID" />
-          <TreeTableColumn fx:id="colTitle" prefWidth="128.79998779296875" text="Title" />
-            <TreeTableColumn fx:id="colAuthor" prefWidth="120.0" text="Author" />
-            <TreeTableColumn fx:id="colYear" prefWidth="62.4000244140625" text="Year" />
-            <TreeTableColumn fx:id="colPages" prefWidth="92.0" text="Pages" />
-        </columns>
-      </TreeTableView>
-      <Button fx:id="btnInsert" layoutX="64.0" layoutY="269.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="26.0" prefWidth="66.0" text="Insert" />
-      <Button fx:id="btnUpdate" layoutX="135.0" layoutY="269.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="26.0" prefWidth="102.0" text="Update" />
-      <Button fx:id="btnDelete" layoutX="241.0" layoutY="269.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="26.0" prefWidth="72.0" text="Delete" />
-   </children>
+   <VBox layoutX="31.0" layoutY="29.0" prefHeight="220.0" prefWidth="78.0" spacing="16.0">
+      <Label text="ID">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label text="Title">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label text="Author">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label text="Year">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label text="Pages">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </VBox>
+   <VBox layoutX="109.0" layoutY="29.0" prefHeight="220.0" prefWidth="202.0" spacing="10.0">
+      <TextField fx:id="tfId" />
+      <TextField fx:id="tfTitle" layoutX="10.0" layoutY="10.0" />
+      <TextField fx:id="tfAuthor" layoutX="10.0" layoutY="36.0" />
+      <TextField fx:id="tfYear" layoutX="10.0" layoutY="61.0" />
+      <TextField fx:id="tfPages" layoutX="10.0" layoutY="87.0" />
+   </VBox>
+
+   <TreeTableView fx:id="tvBooks" layoutX="337.0" layoutY="22.0" onMouseClicked="#handleMouseAction" prefHeight="321.0" prefWidth="451.0">
+      <columns>
+         <TreeTableColumn fx:id="colId" prefWidth="46.4000244140625" text="ID" />
+         <TreeTableColumn fx:id="colTitle" prefWidth="128.79998779296875" text="Title" />
+         <TreeTableColumn fx:id="colAuthor" prefWidth="120.0" text="Author" />
+         <TreeTableColumn fx:id="colYear" prefWidth="62.4000244140625" text="Year" />
+         <TreeTableColumn fx:id="colPages" prefWidth="92.0" text="Pages" />
+      </columns>
+   </TreeTableView>
+   <Button fx:id="btnInsert" layoutX="82.0" layoutY="269.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="26.0" prefWidth="66.0" text="Insert" />
+   <Button fx:id="btnUpdate" layoutX="152.0" layoutY="269.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="26.0" prefWidth="85.0" text="Update" />
+   <Button fx:id="btnDelete" layoutX="241.0" layoutY="269.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="26.0" prefWidth="72.0" text="Delete" />
 </AnchorPane>
