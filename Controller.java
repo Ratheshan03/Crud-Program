@@ -8,8 +8,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+
 import java.net.URL;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -30,22 +35,22 @@ public class Controller implements Initializable {
     private TextField tfPages;
 
     @FXML
-    private TreeTableView<Books> tvBooks;
+    private TableView<Books> tvBooks;
 
     @FXML
-    private TreeTableColumn<Books,Integer> colId;
+    private TableColumn<Books,Integer> colId;
 
     @FXML
-    private TreeTableColumn<Books,String> colTitle;
+    private TableColumn<Books,String> colTitle;
 
     @FXML
-    private TreeTableColumn<Books,String> colAuthor;
+    private TableColumn<Books,String> colAuthor;
 
     @FXML
-    private TreeTableColumn<Books,Integer> colYear;
+    private TableColumn<Books,Integer> colYear;
 
     @FXML
-    private TreeTableColumn<Books,Integer> colPages;
+    private TableColumn<Books,Integer> colPages;
 
     @FXML
     private Button btnInsert;
@@ -58,11 +63,18 @@ public class Controller implements Initializable {
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
+        if (event.getSource()==btnInsert){
+            insertRecord();
+        }else if (event.getSource() == btnUpdate){
+            updateRecord();
+        }else if (event.getSource() == btnDelete){
+            deleteButton();
+        }
 
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        showBooks();
     }
     public Connection getConnection(){
         Connection conn;
@@ -97,18 +109,53 @@ public class Controller implements Initializable {
         return bookList;
     }
 
-    public void showBooks(){
+    private void showBooks(){
         ObservableList<Books> list = getBooksList();
 
-        colId.setCellValueFactory(new PropertyValueFactory<Books, Integer>("id"));
-        colTitle.setCellValueFactory(new PropertyValueFactory<Books, String>("title"));
-        colAuthor.setCellValueFactory(new PropertyValueFactory<Books, String>("author"));
-        colYear.setCellValueFactory(new PropertyValueFactory<Books, Integer>("year"));
-        colPages.setCellValueFactory (new PropertyValueFactory<Books, Integer>("pages"));
+        colId.setCellValueFactory(new PropertyValueFactory<Books,Integer>("id"));
+        colTitle.setCellValueFactory(new PropertyValueFactory<Books,String>("title"));
+        colAuthor.setCellValueFactory(new PropertyValueFactory<Books,String>("author"));
+        colYear.setCellValueFactory(new PropertyValueFactory<Books,Integer>("year"));
+        colPages.setCellValueFactory (new PropertyValueFactory<Books,Integer>("pages"));
 
+        tvBooks.setItems(list);
+    }
+    private void insertRecord(){
+        String query = "INSERT INTO books VALUES (" + tfId.getText()+",'"+ tfTitle.getText()+"','"+tfAuthor.getText()+"',"
+             + tfYear.getText()+","+tfPages.getText()+")";
+        executeQuery(query);
+        showBooks();
+    }
+    private void updateRecord(){
+        String query = "UPDATE books SET title = '"+ tfTitle.getText()+ "' , author = '"+ tfAuthor.getText()+ "' , year = '"+
+                tfYear.getText()+ "', pages = "+ tfPages.getText()+ "WHERE id = " + tfId.getText()+"";
+        showBooks();
+    }
+    private void deleteButton(){
+        String query = "DELETE FROM books WHERE id ="+ tfId.getText()+"";
+        executeQuery(query);
+        showBooks();
     }
 
+    private void executeQuery(String query){
+        Connection conn =getConnection();
+        Statement st;
+        try{
+            st=conn.createStatement();
+            st.executeUpdate(query);
 
+        }catch ( Exception ex){
+            ex.printStackTrace();
+        }
+    }
 
+    public void handleMouseAction(MouseEvent mouseEvent) {
+        Books book = (Books) tvBooks.getSelectionModel().getSelectedItems();
+        tfId.setText("" + book.getId());
+        tfTitle.setText(book.getTitle());
+        tfAuthor.setText(book.getAuthor());
+        tfYear.setText(""+book.getYear());
+        tfPages.setText(""+book.getPages());
 
+    }
 }
